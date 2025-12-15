@@ -1,13 +1,17 @@
 import { useState } from 'react'
-
-import './App.css'
+import { House, Bell, UsersRound, CircleUserRound   } from 'lucide-react'
+import Button from './components/ui/Button/Button.jsx'
+import Input from './components/ui/Input/Input.jsx'
+import './styles/App.css'
+import image from './assets/Tunify.webp'
+import Header from './components/layout/Header/Header.jsx'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <div>
-
+      
+      <Header/>
     </div>
   )
 }
