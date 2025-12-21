@@ -8,7 +8,7 @@ import "react-tooltip/dist/react-tooltip.css";
 
 function Header() {
   return (
-    <header className=' bg-background grid grid-cols-[auto_1fr_auto] items-center gap-3 px-6 py-4 relative'>  
+    <header className=' bg-background grid grid-cols-[auto_1fr_auto] items-center gap-3 px-6 py-3 relative'>  
       <h1 
         className="flex items-center z-2"   
         data-tooltip-id="my-tooltip"
@@ -19,7 +19,7 @@ function Header() {
       </h1>
       <div>
       </div>
-      <div className='flex items-center absolute w-screen justify-center'>
+      <div className='flex items-center absolute w-screen justify-center gap-2'>
         <Button 
           icon={<House className="h-6 w-6"/>} 
           variant='primary' 

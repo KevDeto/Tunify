@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:is(.dark *));
+
 @theme{
     --color-background: #000000;
     --color-text: #FFFFFF;
@@ -9,4 +13,16 @@
 
 body{
     background-color: var(--color-background);
+}
+
+@theme {
+  --color-background: oklch(0.145 0 0);
+  --color-foreground: oklch(0.985 0 0);
+  --color-primary: oklch(0.922 0 0);
+  --color-primary-foreground: oklch(0.205 0 0);
+  --color-secondary: oklch(0.269 0 0);
+  --color-muted: oklch(0.269 0 0);
+  --color-accent: oklch(0.269 0 0);
+  --color-border: oklch(1 0 0 / 10%);
+  --radius: 0.625rem;
 }

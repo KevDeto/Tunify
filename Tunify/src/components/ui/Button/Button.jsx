@@ -17,7 +17,7 @@ const Button = ({
   
   const variants = {
     primary: "border border-transparent bg-section-bg/90 text-white/70 hover:text-white hover:bg-section-bg hover:transition-colors duration-200 hover:scale-102 hover:transition-colors duration-200 hover:border-purple-950/30 cursor-pointer",
-    secondary: "",
+    secondary: "text-white cursor-pointer",
     text: "bg-text font-semibold hover:bg-text/90 hover:scale-103 cursor-pointer",
     iconWithoutBg: "text-white/70 cursor-pointer hover:text-text",
     accesAcount: "border border-transparent text-white cursor-pointer hover:scale-103",
