@@ -1,0 +1,12 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@theme inline {
+    --color-fill: var(--color-fill);
+    --color-fill-hover: var(--color-fill-hover)
+}
+
+:root {
+    --color-fill: #180b29;
+    --color-fill-hover: #23113a;
+}

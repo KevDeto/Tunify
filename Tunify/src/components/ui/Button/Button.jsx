@@ -1,79 +1,58 @@
-import React from "react";
+import * as React from "react"
+import { Slot } from "@radix-ui/react-slot"
+import { cva } from "class-variance-authority";
 
-const Button = ({ 
-  children, 
-  variant = 'primary', 
-  size = 'md',
-  icon,
-  iconPosition = 'left',
-  iconOnly = false,
-  onClick, 
-  className = '',
-  isLoading = false,
-  disabled = false,  
-  ariaLabel, // Recibimos como prop
-  isActive,  // Recibimos pero NO lo pasamos al <button>
-  ...props 
-}) => {
-  const baseClasses = "rounded-full transition-all duration-200 flex items-center justify-center focus:outline-none";
-  
-  const variants = {
-    primary: "border border-transparent bg-section-bg/90 text-white/70 hover:text-white hover:bg-section-bg hover:transition-colors duration-200 hover:scale-102 hover:transition-colors duration-200 hover:border-purple-950/30 cursor-pointer",
-    secondary: "text-white cursor-pointer",
-    text: "bg-text font-semibold hover:bg-text/90 hover:scale-103 cursor-pointer",
-    iconWithoutBg: "text-white/70 cursor-pointer hover:text-text",
-    accesAcount: "border border-transparent text-white cursor-pointer hover:scale-103",
-    success: "",
-    danger: "",
-    player: "",
-  };
+import { cn } from "@/lib/utils"
 
-  const sizes = {
-    xs: "p-1.5 text-xs",
-    sm: "px-3 py-1.5 text-sm",
-    md: "px-2 py-2",
-    lg: "p-2",
-    xl: "px-8 py-4 text-xl",
-    text: "px-4 py-1",
-    icon: "p-0 m-0",
-  };
+const buttonVariants = cva(
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+  {
+    variants: {
+      variant: {
+        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        destructive:
+          "bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
+        outline:
+          "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
+        secondary:
+          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        ghost:
+          "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
+        link: "text-primary underline-offset-4 hover:underline",
+      },
+      size: {
+        default: "h-9 px-4 py-2 has-[>svg]:px-3",
+        sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
+        lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
+        icon: "size-9",
+        "icon-sm": "size-8",
+        "icon-lg": "size-12",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  }
+)
 
-  // Renderiza el ícono (si se pasa como elemento JSX)
-  const renderIcon = (position) => {
-    if (!icon || isLoading || position !== iconPosition) return null;
-    
-    // Clona el elemento ícono y añade clases (ya que los elementos jsx son inmutables debo hacerlo con cloneElement)
-    return React.cloneElement(icon, {
-      className: `${icon.props?.className || ''} ${iconOnly ? '' : position === 'left' ? 'mr-2' : 'ml-2'}`
-    });
-  };
+function Button({
+  className,
+  variant = "default",
+  size = "default",
+  asChild = false,
+  ...props
+}) {
+  const Comp = asChild ? Slot : "button"
 
   return (
-    <button 
-      className={`
-        ${baseClasses} 
-        ${variants[variant]} 
-        ${sizes[size]} 
-        ${disabled ? 'opacity-50 cursor-not-allowed' : ''}
-        ${className}
-        ${iconOnly ? 'rounded-full aspect-square' : ''}
-      `}
-      onClick={onClick}
-      disabled={disabled || isLoading}
-      aria-label={iconOnly && typeof children === 'string' ? children : undefined}
-      {...props}
-    >
-      {isLoading ? (
-        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-      ) : (
-        <>
-          {renderIcon('left')}
-          {!iconOnly && children}
-          {renderIcon('right')}
-        </>
-      )}
-    </button>
+    <Comp
+      data-slot="button"
+      data-variant={variant}
+      data-size={size}
+      className={cn(buttonVariants({ variant, size, className }))}
+      {...props} />
   );
-};
+}
 
-export default Button;
+export { Button, buttonVariants }
