@@ -15,7 +15,7 @@ const ResizablePanel = () => {
         </Panel>
         <PanelResizeHandle />
         <Panel           
-            defaultSize={50} 
+            defaultSize={68} 
             minSize={40} className="rounded-md ">
             <CenterPanel/>
         </Panel>

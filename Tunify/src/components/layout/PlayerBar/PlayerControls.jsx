@@ -1,15 +1,7 @@
 import React from "react";
 import Button from "../../ui/Button/Button.jsx";
 
-import { 
-    Shuffle, 
-    SkipBack, 
-    Play, 
-    Pause, 
-    SkipForward, 
-    Repeat,
-    Repeat1 
-} from "lucide-react";
+import { Shuffle, SkipBack, Play, Pause, SkipForward, Repeat, Repeat1 } from "lucide-react";
 
 const PlayerControls = ({ 
     isPlaying,
@@ -69,7 +61,7 @@ const PlayerControls = ({
                 size="icon"
                 variant="iconWithoutBg">
                 {repeatMode === "one" ? (
-                    <Repeat1 className="h-4 w-4" />
+                    <Repeat1 className="h-4 w-4 text-hover-icon" />
                 ) : (
                     <Repeat className="h-4 w-4" />
                 )}

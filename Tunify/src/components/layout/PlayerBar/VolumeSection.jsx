@@ -4,133 +4,86 @@ import { Slider } from "@/components/ui/slider";
 import Button from "../../ui/Button/Button.jsx";
 
 const VolumeSection = ({ 
-    volume: externalVolume = 70,
-    onVolumeChange = null,
-    onMuteToggle = null,
-    isMuted: externalIsMuted = null,
+    volume = 70,            // Del hook
+    isMuted = false,        // Del hook  
+    onVolumeChange = null,  // setVolumeLevel del hook
+    onToggleMute = null,    // toggleMute del hook
     disabled = false,
     className = "",
     showTooltip = true,
     step = 1,
-    max = 100,
-    storageKey = "tunify_volume",
-    persistVolume = true
+    max = 100
 }) => {
-    const [internalVolume, setInternalVolume] = useState(externalVolume);
-    const [internalIsMuted, setInternalIsMuted] = useState(false);
-    const [previousVolume, setPreviousVolume] = useState(externalVolume);
-    const [isDragging, setIsDragging] = useState(false);
     const [showVolumeTooltip, setShowVolumeTooltip] = useState(false);
-    
-    const sliderRef = useRef(null);
+    const [isDragging, setIsDragging] = useState(false);
     const timeoutRef = useRef(null);
 
-    // Sincronizar con props externos
-    useEffect(() => {
-        setInternalVolume(externalVolume);
-    }, [externalVolume]);
-
-    // Determinar estados
-    const isMuted = externalIsMuted !== null ? externalIsMuted : internalIsMuted;
-    const volume = internalVolume;
-
-    // Cargar volumen guardado
-    useEffect(() => {
-        if (persistVolume && storageKey) {
-            try {
-                const savedVolume = localStorage.getItem(storageKey);
-                if (savedVolume !== null) {
-                    const parsedVolume = parseInt(savedVolume, 10);
-                    if (!isNaN(parsedVolume)) {
-                        setInternalVolume(parsedVolume);
-                        setPreviousVolume(parsedVolume);
-                        onVolumeChange?.(parsedVolume);
-                    }
-                }
-            } catch (error) {
-                console.warn("No se pudo cargar el volumen guardado:", error);
-            }
-        }
-    }, [persistVolume, storageKey, onVolumeChange]);
-
-    // Guardar volumen
-    useEffect(() => {
-        if (persistVolume && storageKey && !isMuted) {
-            try {
-                localStorage.setItem(storageKey, volume.toString());
-            } catch (error) {
-                console.warn("No se pudo guardar el volumen:", error);
-            }
-        }
-    }, [volume, isMuted, persistVolume, storageKey]);
-
-    // Callbacks memoizados
-    const handleMuteToggle = useCallback(() => {
+// Manejar cambio de volumen
+    const handleVolumeChange = (values) => {
         if (disabled) return;
         
-        if (isMuted) {
-            // Desmutear
-            const newVolume = previousVolume;
-            if (externalIsMuted === null) setInternalIsMuted(false);
-            setInternalVolume(newVolume);
+        if (onVolumeChange && values && values[0] !== undefined) {
+            const newVolume = values[0];
             
-            onVolumeChange?.(newVolume);
-            onMuteToggle?.(false, newVolume);
-        } else {
-            // Mutear
-            setPreviousVolume(volume);
-            if (externalIsMuted === null) setInternalIsMuted(true);
-            setInternalVolume(0);
+            // Si está muteado, desmutear automáticamente
+            if (isMuted && onToggleMute) {
+                onToggleMute(); // Desmutear
+            }
             
-            onVolumeChange?.(0);
-            onMuteToggle?.(true, volume);
-        }
-    }, [disabled, isMuted, previousVolume, volume, externalIsMuted, onVolumeChange, onMuteToggle]);
-
-    const handleVolumeChange = useCallback((values) => {
-        if (disabled) return;
-        
-        const newVolume = values[0];
-        setInternalVolume(newVolume);
-        
-        if (newVolume > 0 && isMuted) {
-            if (externalIsMuted === null) setInternalIsMuted(false);
+            // Aplicar el nuevo volumen
+            onVolumeChange([newVolume]);
         }
         
-        onVolumeChange?.(newVolume);
-        
+        // Mostrar tooltip temporal
         if (showTooltip) {
             setShowVolumeTooltip(true);
             if (timeoutRef.current) clearTimeout(timeoutRef.current);
             timeoutRef.current = setTimeout(() => setShowVolumeTooltip(false), 1500);
         }
-    }, [disabled, isMuted, externalIsMuted, onVolumeChange, showTooltip]);
+    };
 
-    // Helper functions
-    const getVolumeIcon = useCallback(() => {
+    // Manejar toggle de mute
+    const handleMuteToggle = () => {
+        if (disabled) return;
+        
+        if (onToggleMute) {
+            onToggleMute();
+        }
+        
+        // Mostrar tooltip temporal
+        if (showTooltip) {
+            setShowVolumeTooltip(true);
+            if (timeoutRef.current) clearTimeout(timeoutRef.current);
+            timeoutRef.current = setTimeout(() => setShowVolumeTooltip(false), 1000);
+        }
+    };
+
+    // Obtener icono según volumen
+    const getVolumeIcon = () => {
         const currentVolume = isMuted ? 0 : volume;
         
-        if (currentVolume === 0) return <VolumeX className="h-5 w-5" />;
-        if (currentVolume < 30) return <Volume className="h-5 w-5" />;
-        if (currentVolume < 70) return <Volume1 className="h-5 w-5" />;
-        return <Volume2 className="h-5 w-5" />;
-    }, [isMuted, volume]);
+        if (currentVolume === 0) return <VolumeX className="h-5 w-5 text-gray-400" />;
+        if (currentVolume < 30) return <Volume className="h-5 w-5 text-gray-300" />;
+        if (currentVolume < 70) return <Volume1 className="h-5 w-5 text-gray-300" />;
+        return <Volume2 className="h-5 w-5 text-gray-300" />;
+    };
 
-    const formatVolumeText = useCallback(() => {
+    // Formatear texto de volumen
+    const formatVolumeText = () => {
         return `${isMuted ? 0 : volume}%`;
-    }, [isMuted, volume]);
+    };
 
-    // Event handlers
-    const handleMouseEnter = useCallback(() => {
+    // Tooltip handlers
+    const handleMouseEnter = () => {
         if (showTooltip) setShowVolumeTooltip(true);
-    }, [showTooltip]);
+    };
 
-    const handleMouseLeave = useCallback(() => {
+    const handleMouseLeave = () => {
         if (showTooltip && !isDragging) setShowVolumeTooltip(false);
-    }, [showTooltip, isDragging]);
+    };
 
-    const handleSliderMouseDown = useCallback(() => setIsDragging(true), []);
-    const handleSliderMouseUp = useCallback(() => setIsDragging(false), []);
+    const handleSliderMouseDown = () => setIsDragging(true);
+    const handleSliderMouseUp = () => setIsDragging(false);
 
     // Cleanup
     useEffect(() => {
@@ -143,7 +96,9 @@ const VolumeSection = ({
         <div className={`flex items-center gap-3 ${className}`}>
             <Button
                 variant="iconWithoutBg"
-                onClick={handleMuteToggle}
+                onClick={() => {
+                    if (onToggleMute) onToggleMute();
+                }}
                 disabled={disabled}
                 aria-label={isMuted ? "Activar sonido" : "Silenciar"}
                 onMouseEnter={handleMouseEnter}
@@ -154,7 +109,6 @@ const VolumeSection = ({
 
             <div 
                 className="relative w-30 group"
-                ref={sliderRef}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}>
                 <Slider

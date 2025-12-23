@@ -10,7 +10,9 @@ const Button = ({
   onClick, 
   className = '',
   isLoading = false,
-  disabled = false,
+  disabled = false,  
+  ariaLabel, // Recibimos como prop
+  isActive,  // Recibimos pero NO lo pasamos al <button>
   ...props 
 }) => {
   const baseClasses = "rounded-full transition-all duration-200 flex items-center justify-center focus:outline-none";
@@ -58,7 +60,7 @@ const Button = ({
       `}
       onClick={onClick}
       disabled={disabled || isLoading}
-        aria-label={iconOnly && typeof children === 'string' ? children : undefined}
+      aria-label={iconOnly && typeof children === 'string' ? children : undefined}
       {...props}
     >
       {isLoading ? (

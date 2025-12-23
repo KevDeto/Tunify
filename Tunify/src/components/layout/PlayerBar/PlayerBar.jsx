@@ -1,36 +1,92 @@
-import React from "react";
+import React, { useState } from "react";
 import SongInfo from "./SongInfo";
 import PlayerControls from "./PlayerControls";
 import ProgressBar from "./ProgressBar";
 import VolumeSection from "./VolumeSection";
+import { useMusicPlayer } from "../../../hooks/useMusicPlayer";
 
 const PlayerBar = () => {
-    const playerState = {
-        isPlaying: false,
-        isShuffled: false,
-        repeatMode: "off",
-        volume: 70,
-        progress: 35,
-        currentTime: "1:23",
-        totalTime: "3:45",
-        currentTrack: {
-            id: 1,
-            title: "Last Rites/Loved To Deth - Live At The Phantasy Theatre, 1987",
-            artist: "Megadeth",
-            album: "Álbum del Artista",
-            coverUrl: "https://via.placeholder.com/48x48",
-            isLiked: false
+    const {
+        // Estado
+        currentTrack,
+        isPlaying,
+        currentTime,
+        duration,
+        volume,
+        isMuted,
+        playlist,
+        currentIndex,
+        loading,
+        error,
+        repeatMode, setRepeatMode,
+        // Métodos de control básicos
+        play,
+        pause,
+        togglePlay,
+        playNext,
+        playPrevious,
+        seek,
+        setVolume: setVolumeLevel,
+        toggleMute,
+        setMute,
+        formatTime
+    } = useMusicPlayer();
+
+    const [isShuffled, setIsShuffled] = useState(false);
+    const [isLiked, setIsLiked] = useState(false);
+
+    const handlePlayPause = () => {
+        console.log("Play/Pause");
+        togglePlay();
+    };
+
+    const handlePlayNext = () => {
+        console.log("next song");
+        playNext();
+    }
+
+    const handlePrevious = () => {
+        console.log("Previous song");
+        playPrevious();
+    };
+
+    const handleProgressChange = (values) => {
+        if (values && values[0] !== undefined) {
+            const percent = values[0];
+            const seekTime = (percent / 100) * duration;
+            console.log("Seek to:", seekTime, "seconds");
+            seek(seekTime);
         }
     };
 
-    const handlePlayPause = () => console.log("Play/Pause");
-    const handleNext = () => console.log("Next");
-    const handlePrevious = () => console.log("Previous");
-    const handleShuffle = () => console.log("Toggle Shuffle");
-    const handleRepeat = () => console.log("Toggle Repeat");
-    const handleVolumeChange = (value) => console.log("Volume:", value);
-    const handleProgressChange = (value) => console.log("Progress:", value);
-    const handleLikeToggle = () => console.log("Toggle Like");
+    const handleShuffle = () => {
+        console.log("Shuffle toggle");
+        setIsShuffled(!isShuffled);
+    };
+
+    const handleRepeat = () => {
+        console.log("Repeat toggle");
+        const modes = ["off","one"];
+        const currentIndex = modes.indexOf(repeatMode);
+        const nextIndex = (currentIndex + 1) % modes.length;
+        setRepeatMode(modes[nextIndex]);
+    };
+
+    const handleLikeToggle = () => {
+        console.log("Like toggle");
+        setIsLiked(!isLiked);
+    };
+
+    const handleVolumeChange = (values) => {
+        console.log("Volume change:", values);
+        if (values && values[0] !== undefined && setVolumeLevel) {
+            setVolumeLevel(values[0]);
+        }
+    };
+
+    const formattedCurrentTime = formatTime(currentTime);
+    const formattedTotalTime = formatTime(duration);
+    const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
 
     return (
         <footer className="fixed bottom-0 left-0 right-0 h-22 bg-black/95 backdrop-blur-lg border-t border-white/10 z-10">
@@ -40,7 +96,7 @@ const PlayerBar = () => {
                     {/* columna 1*/}
                     <div className="justify-self-start min-w-0 max-w-lg">
                         <SongInfo 
-                            track={playerState.currentTrack}
+                            track={currentTrack}
                             onLikeToggle={handleLikeToggle}
                         />
                     </div>
@@ -49,11 +105,11 @@ const PlayerBar = () => {
                     <div className="justify-self-center flex flex-col items-center space-y-2 w-full max-w-2xl">
                         {/* Botones de control */}
                         <PlayerControls
-                            isPlaying={playerState.isPlaying}
-                            isShuffled={playerState.isShuffled}
-                            repeatMode={playerState.repeatMode}
+                            isPlaying={isPlaying}
+                            isShuffled={isShuffled}
+                            repeatMode={repeatMode}
                             onPlayPause={handlePlayPause}
-                            onNext={handleNext}
+                            onNext={handlePlayNext}
                             onPrevious={handlePrevious}
                             onShuffle={handleShuffle}
                             onRepeat={handleRepeat}
@@ -62,9 +118,11 @@ const PlayerBar = () => {
                         {/* barra de progreso */}
                         <div className="w-full">
                             <ProgressBar
-                                currentTime={playerState.currentTime}
-                                totalTime={playerState.totalTime}
-                                progress={playerState.progress}
+                                currentTime={currentTime}
+                                totalTime={duration}
+                                formattedCurrentTime={formattedCurrentTime}
+                                formattedTotalTime={formattedTotalTime}
+                                progress={progress}
                                 onChange={handleProgressChange}
                             />
                         </div>
@@ -73,8 +131,10 @@ const PlayerBar = () => {
                     {/* columna 3*/}
                     <div className="justify-self-end min-w-0 max-w-md">
                         <VolumeSection
-                            volume={playerState.volume}
+                            volume={volume}
+                            isMuted={isMuted}
                             onVolumeChange={handleVolumeChange}
+                            onToggleMute={toggleMute}
                         />
                     </div>
 

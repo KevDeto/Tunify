@@ -1,24 +1,53 @@
-import React, { useState } from 'react';
-import { Slider } from "@/components/ui/slider"
+import React, { useState, useEffect } from 'react';
+import { Slider } from "@/components/ui/slider";
 
 const ProgressBar = ({ 
   currentTime = 0, 
   duration = 200, 
-  onChange 
+  formattedCurrentTime = "0:00",
+  formattedTotalTime = "0:00",
+  progress = 0,
+  onChange,
+  disabled = false
 }) => {
-  const currentPercent = duration > 0 ? (currentTime / duration) * 100 : 0;
+  const [sliderValue, setSliderValue] = useState(progress);
+  const [isDragging, setIsDragging] = useState(false);
   
-  const formatTime = (seconds) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = Math.floor(seconds % 60);
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
-  };
+  // Sincronizar con prop
+  useEffect(() => {
+    if (!isDragging) {
+      setSliderValue(progress);
+    }
+  }, [progress, isDragging]);
 
   return (
     <div className="flex items-center gap-3 w-full text-white">
-      <p className='text-xs'>00:00</p>
-      <Slider defaultValue={[33]} max={100} step={1} />
-      <p className='text-xs'>02:00</p>
+      <span className='text-xs min-w-[3ch] text-right opacity-75'>
+        {formattedCurrentTime}
+      </span>
+      
+      <div className="flex-1">
+        <Slider 
+          value={[sliderValue]} 
+          max={100} 
+          step={0.1}
+          disabled={disabled}
+          onValueChange={onChange}
+          // Simular inicio/fin del arrastre con onPointerDown/Up
+          onPointerDown={() => setIsDragging(true)}
+          onPointerUp={() => {
+            if (onChange && sliderValue !== undefined) {
+              onChange([sliderValue]);
+            }
+            setIsDragging(false);
+          }}
+          className="cursor-pointer"
+        />
+      </div>
+      
+      <span className='text-xs min-w-[3ch] text-left opacity-75'>
+        {formattedTotalTime}
+      </span>
     </div>
   );
 };
