@@ -2,7 +2,7 @@ import React from "react";
 
 const CenterPanel = ({ children }) => {
     return (
-        <div className="bg-purple-950/30 h-full flex flex-col pt-4 overflow-y-auto">
+        <div className="bg-fill h-full flex flex-col pt-4 overflow-y-auto rounded-lg">
             
         </div>
     );

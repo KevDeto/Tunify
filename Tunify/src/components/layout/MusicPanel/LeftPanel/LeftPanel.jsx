@@ -8,7 +8,7 @@ const LeftPanel = ({ children }) => {
 
     return (
         <div
-            className="h-full flex flex-col pt-4 bg-purple-950/30 p-4"
+            className="h-full flex flex-col pt-4 bg-fill p-4 rounded-lg"
             onMouseEnter={() => setIsHoveringPanel(true)}
             onMouseLeave={() => setIsHoveringPanel(false)}
         >
@@ -42,11 +42,11 @@ const LeftPanel = ({ children }) => {
                     </Button>
                 </div>
                 <Button
-                    className="font-semibold group/plus text-white cursor-pointer">
+                    className="font-semibold group/plus text-white cursor-pointer hover:bg-fill-hover rounded-full">
                     <Plus
                         className="
                         text-white/70
-                        group-hover/plus:text-white 
+                        group-hover/plus:text-white
                         transition-colors duration-200"/>
                     Crear
                 </Button>
