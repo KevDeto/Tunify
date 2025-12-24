@@ -14,7 +14,7 @@ const LeftPanel = ({ children }) => {
         >
             <div className="flex justify-between items-center">
                 <div className="relative">
-                    <Button
+                    <Button 
                         className={`
                             text-white cursor-pointer
                             font-semibold text-md
@@ -28,7 +28,7 @@ const LeftPanel = ({ children }) => {
                             >
                                 <PanelLeftClose
                                     className={`
-                                        h-5 w-5
+                                        h-4 w-4
                                         transition-all duration-200
                                         ${isHoveringIcon
                                             ? 'text-white'
@@ -45,6 +45,7 @@ const LeftPanel = ({ children }) => {
                     className="font-semibold group/plus text-white cursor-pointer hover:bg-fill-hover rounded-full">
                     <Plus
                         className="
+                        h-4 w-4
                         text-white/70
                         group-hover/plus:text-white
                         transition-colors duration-200"/>

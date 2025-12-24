@@ -1,8 +1,14 @@
+import { Button } from "@/components/ui/Button/button";
+import { Play, Pause, SkipForward, SkipBack } from "lucide-react"
 import { icons } from "@/icons/Icons";
-import { useState } from "react";
+import React, { useState } from "react";
 
 export function PlayerControl() {
-    const {isPlaying} = useState(true);
+  const [ isPlaying, setIsPlaying ] = useState(false);
+
+  const onPlayPause = () => {
+    setIsPlaying(!isPlaying);
+  }
   /*const {currentMusic, isPlaying, setIsPlaying, setCurrentMusic} = usePlayerStore(state => state);
   const { getNextSong, getPreviousSong } = useCurrentMusic(currentMusic);
 
@@ -28,29 +34,32 @@ export function PlayerControl() {
   }*/
   return (
     <div className="flex justify-center items-center gap-6">
-      <button 
-        className="hover:scale-110 text-white hover:text-gray-300 transition-all" 
-        title="Previous song"
+      <Button
+        variant="ghost"
+        size="default"
+        className="hover:scale-105 transition-transform duration-105 ease-out"
       >
-        <div className="w-8 h-8">
-          {icons.Prev}
-        </div>
-      </button>
-      <button 
-        className="bg-white text-black rounded-full p-3 hover:scale-110 transition-all"
+        <SkipBack size={18} strokeWidth={3} fill="white" color="white" />
+      </Button>
+      <Button
+        variant="outline"
+        size="icon"
+        className="bg-white rounded-full cursor-pointer hover:scale-105"
+        onClick={onPlayPause}
       >
-        <div className="w-8 h-8">
-          {isPlaying ? icons.Pause : icons.Play}
-        </div>
-      </button>
-      <button 
-        className="hover:scale-110 text-white hover:text-gray-300 transition-all" 
-        title="Next song"
+        {isPlaying ? (
+          <Pause size={16} fill="black" color="black"/>
+        ) : (
+          <Play size={16} strokeWidth={3} fill="black" color="black" />
+        )}
+      </Button>
+      <Button
+        variant="ghost"
+        size="default"
+        className="hover:scale-105 transition-transform duration-105 ease-out"
       >
-        <div className="w-8 h-8">
-          {icons.Next}
-        </div>
-      </button>
+        <SkipForward size={18} strokeWidth={3} fill="white" color="white" />
+      </Button>
     </div>
   );
 }
