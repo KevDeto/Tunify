@@ -1,13 +1,13 @@
 import { colors } from "./colors";
 
-export const playlist = [
+export const playlists = [
   {
     id: '1',
     albumId: 1,
     title: "Chill Lo-Fi Music",
     color: colors.yellow,
     cover:
-      "https://vinyl.lofirecords.com/cdn/shop/products/VINYL_MORNING_COFFEE_4-min.png?v=1680526353",
+      "https://f4.bcbits.com/img/a1435058381_65.jpg",
     artists: ["NoSpirit", "Casiio"],
   },
   {
@@ -16,7 +16,7 @@ export const playlist = [
     title: "Lo-Fi Chill Session",
     color: colors.green,
     cover:
-      "https://vinyl.lofirecords.com/cdn/shop/files/2amsynth-vinyl.png?v=1693312187",
+      "https://f4.bcbits.com/img/a1435058381_65.jpg",
     artists: ["Kupla", "Blue Fox"],
   },
   {
@@ -79,6 +79,7 @@ export const songs = [
     "id": 1,
     "albumId": 1,
     "title": "Moonlit Walk",
+    "src": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
     "image": `https://vinyl.lofirecords.com/cdn/shop/products/VINYL_MORNING_COFFEE_4-min.png?v=1680526353`,
     "artists": ["LoFi Dreamer"],
     "album": "Chill Lo-Fi Music",
@@ -88,6 +89,7 @@ export const songs = [
     "id": 2,
     "albumId": 1,
     "title": "Coffee Daze",
+    "src": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
     "image": `https://vinyl.lofirecords.com/cdn/shop/products/VINYL_MORNING_COFFEE_4-min.png?v=1680526353`,
     "artists": ["LoFi Dreamer"],
     "album": "Chill Lo-Fi Music",
@@ -97,6 +99,7 @@ export const songs = [
     "id": 3,
     "albumId": 1,
     "title": "Skyline Serenade",
+    "src": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
     "image": `https://vinyl.lofirecords.com/cdn/shop/products/VINYL_MORNING_COFFEE_4-min.png?v=1680526353`,
     "artists": ["LoFi Dreamer"],
     "album": "Chill Lo-Fi Music",
@@ -124,6 +127,7 @@ export const songs = [
     "id": 1,
     "albumId": 2,
     "title": "Silent Rain",
+    "src": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
     "image": `https://vinyl.lofirecords.com/cdn/shop/files/2amsynth-vinyl.png?v=1693312187`,
     "artists": ["Urban Nocturne"],
     "album": "Midnight Tales",
@@ -133,6 +137,7 @@ export const songs = [
     "id": 2,
     "albumId": 2,
     "title": "Lost Pages",
+    "src": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",
     "image": `https://vinyl.lofirecords.com/cdn/shop/files/2amsynth-vinyl.png?v=1693312187`,
     "artists": ["Urban Nocturne"],
     "album": "Midnight Tales",
@@ -169,6 +174,7 @@ export const songs = [
     "id": 1,
     "albumId": 3,
     "title": "Lunar",
+    "src": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3",
     "image": `https://f4.bcbits.com/img/a1435058381_65.jpg`,
     "artists": ["Tenno"],
     "album": "Study Session",
@@ -178,6 +184,7 @@ export const songs = [
     "id": 2,
     "albumId": 3,
     "title": "Go go go!",
+    "src": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3",
     "image": `https://f4.bcbits.com/img/a1435058381_65.jpg`,
     "artists": ["Tenno"],
     "album": "Study Session",
@@ -214,6 +221,7 @@ export const songs = [
     "id": 1,
     "albumId": 4,
     "title": "Lunar",
+    "src": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3",
     "image": "https://f4.bcbits.com/img/a1962013209_16.jpg",
     "artists": ["Tenno"],
     "album": "Study Session",
@@ -223,6 +231,7 @@ export const songs = [
     "id": 2,
     "albumId": 4,
     "title": "Go go go!",
+    "src": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3",
     "image": "https://f4.bcbits.com/img/a1962013209_16.jpg",
     "artists": ["Tenno"],
     "album": "Study Session",
@@ -259,6 +268,7 @@ export const songs = [
     "id": 1,
     "albumId": 5,
     "title": "Moonlit Walk",
+    "src": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3",
     "image": "https://f4.bcbits.com/img/a2793859494_16.jpg",
     "artists": ["LoFi Dreamer"],
     "album": "Chill Lo-Fi Music",
@@ -268,6 +278,7 @@ export const songs = [
     "id": 2,
     "albumId": 5,
     "title": "Coffee Daze",
+    "src": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3",
     "image": "https://f4.bcbits.com/img/a2793859494_16.jpg",
     "artists": ["LoFi Dreamer"],
     "album": "Chill Lo-Fi Music",

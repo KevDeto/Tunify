@@ -3,10 +3,12 @@
 
 @theme inline {
     --color-fill: var(--color-fill);
-    --color-fill-hover: var(--color-fill-hover)
+    --color-fill-hover: var(--color-fill-hover);
+    --color-active: var(--color-active);
 }
 
 :root {
     --color-fill: #180b29;
     --color-fill-hover: #23113a;
+    --color-active: #c7367e;
 }

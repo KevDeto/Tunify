@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/Button/button";
 import { PanelLeftClose, Plus } from 'lucide-react';
+import PlaylistCard from "@/components/Layout/PlaylistCard/PlaylistCard.jsx"
+import { playlists } from "@/lib/data";
 
 const LeftPanel = ({ children }) => {
     const [isHoveringPanel, setIsHoveringPanel] = useState(false);
@@ -8,13 +10,13 @@ const LeftPanel = ({ children }) => {
 
     return (
         <div
-            className="h-full flex flex-col pt-4 bg-fill p-4 rounded-lg"
+            className=" flex flex-col pt-4 bg-fill p-4 pr-2 rounded-lg h-full"
             onMouseEnter={() => setIsHoveringPanel(true)}
             onMouseLeave={() => setIsHoveringPanel(false)}
         >
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center pr-2">
                 <div className="relative">
-                    <Button 
+                    <Button
                         className={`
                             text-white cursor-pointer
                             font-semibold text-md
@@ -42,7 +44,7 @@ const LeftPanel = ({ children }) => {
                     </Button>
                 </div>
                 <Button
-                    className="font-semibold group/plus text-white cursor-pointer hover:bg-fill-hover rounded-full">
+                    className="font-semibold group/plus text-white cursor-pointer hover:bg-fill-hover rounded-full px-1.5">
                     <Plus
                         className="
                         h-4 w-4
@@ -51,6 +53,9 @@ const LeftPanel = ({ children }) => {
                         transition-colors duration-200"/>
                     Crear
                 </Button>
+            </div>
+            <div>
+                <PlaylistCard />
             </div>
         </div>
     );
