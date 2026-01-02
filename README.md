@@ -13,3 +13,5 @@ Utilizara:
 - Tailwind CSS.
 
 - Zustand.
+
+### No terminada por el momento
