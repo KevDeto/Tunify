@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/Button/button";
+import { Button } from "@/components/ui/Button/Button";
 import { Play, Pause, SkipForward, SkipBack, Repeat, Shuffle, Repeat1 } from "lucide-react"
 import React, { useEffect, useRef, useState } from "react";
 import { usePlayerStore } from "@/stores/usePlayerStore";

@@ -1,5 +1,5 @@
 import { CirclePlus } from "lucide-react";
-import { Button } from "@/components/ui/Button/button";
+import { Button } from "@/components/ui/Button/Button";
 import { usePlayerStore } from "@/stores/usePlayerStore";
 
 const SongInfo = () => {

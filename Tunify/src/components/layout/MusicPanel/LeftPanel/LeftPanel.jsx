@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button } from "@/components/ui/Button/button";
+import { Button } from "@/components/ui/Button/Button";
 import { PanelLeftClose, Plus } from 'lucide-react';
 import PlaylistCard from "@/components/layout/PlaylistCard/PlaylistCard.jsx"
 import { playlists } from "@/lib/data";
