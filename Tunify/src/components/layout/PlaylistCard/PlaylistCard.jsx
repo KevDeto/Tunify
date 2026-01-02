@@ -1,7 +1,7 @@
 import React from "react";
 import { playlists, songs } from "@/lib/data";
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/Button/button";
+import { Button } from "@/components/ui/Button/Button";
 import { Pause, Play } from "lucide-react";
 import { usePlayerStore } from "@/stores/usePlayerStore";
 import { getPlaylistInfo } from "@/services/api";
