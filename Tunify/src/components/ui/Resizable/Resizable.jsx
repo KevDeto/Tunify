@@ -1,7 +1,7 @@
 import * as React from "react"
 import { Group, Panel, Separator } from "react-resizable-panels"
-import LeftPanel from "@/components/Layout/MusicPanel/LeftPanel/LeftPanel";
-import CenterPanel from "@/components/Layout/MusicPanel/CenterPanel/CenterPanel";
+import LeftPanel from "@/components/layout/MusicPanel/LeftPanel/LeftPanel";
+import CenterPanel from "@/components/layout/MusicPanel/CenterPanel/CenterPanel";
 
 const Resizable = () => {
   return (

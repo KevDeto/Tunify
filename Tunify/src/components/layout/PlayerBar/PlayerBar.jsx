@@ -1,5 +1,5 @@
 import React from "react";
-import { PlayerControl } from "@/components/Layout/PlayerBar/PlayerControl/PlayerControl"
+import { PlayerControl } from "@/components/layout/PlayerBar/PlayerControl/PlayerControl"
 import SongInfo from "./SongInfo/SongInfo";
 import VolumeControl from "./VolumeControl/VolumeControl";
 
